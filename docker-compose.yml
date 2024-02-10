@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+  palworld-hard-coop:
+    #build: .
+    container_name: palworld-hard-coop
+    image: palworld-hard-coop:latest
+    restart: unless-stopped
+    ports:
+      - target: 8212 # Gamerserver port inside of the container
+        published: 8212 # Gamerserver port on your host
+        protocol: udp
+        mode: host
+      - target: 25576 # RCON port inside of the container
+        published: 25576 # RCON port on your host
+        protocol: tcp
+        mode: host
+    env_file:
+      - ./default.env
+    volumes:
+      - ./Game/PalServer:/palworld
